@@ -1,0 +1,399 @@
+#:kivy 1.0.9
+
+
+<LoginScreen>:
+    name: 'login'
+    rut: Rut
+    password_input: password
+    rutlabel: rutlabel 
+    passwordlabel: passwordlabel
+    errorlabel: errorlabel
+
+
+
+    TextInput:
+        id: Rut
+        pos_hint: {'x':0.15, 'y':0.55}
+        hint_text: 'Ingrese su rut'
+        on_text_validate: root.rut_template()
+
+
+    Label:
+        id: rutlabel
+        pos_hint: {'x':0.85, 'y':0.55}
+        size_hint: .1, .1
+        text: ''
+
+
+    TextInput:
+        id: password
+        pos_hint: {'x':0.15, 'y':0.45}
+        hint_text: 'Ingrese su contraseña'
+        on_text_validate: root.login()
+
+    Label:
+        id: passwordlabel
+        pos_hint: {'x':0.85, 'y':0.45}
+        size_hint: .1, .1
+        text: ''
+
+    Label:
+        id: errorlabel
+        pos_hint: {'x':0.15, 'y': 0.35}
+        size_hint: 0.7, 0.10
+        text: ''
+
+    Button:
+        text: "A ganar transpuntos"
+        size_hint: 0.7, 0.10
+        pos_hint: {'x':0.15, 'y':0.25}
+        on_press: 
+            root.login()
+
+    Label:
+        text: '¿No tienes una cuenta METRO? \n Regístrate apretando el botón'
+        size_hint: 0.7, 0.1
+        pos_hint: {'x':0.15, 'y':0.10}
+
+
+    Button:
+        text: "Registrarse"
+        size_hint: 0.7, 0.1
+        pos_hint:{'x':0.15, 'y':0}
+        on_press: root.manager.current = 'register'
+
+<RegistrationScreen>:
+    rut: rut
+    email: email
+    nombre: nombre
+    apellidos: apellidos
+    bip: bip
+    password: password
+    nombrelabel: nombrelabel
+    apellidoslabel: apellidoslabel
+    emaillabel: emaillabel
+    rutlabel: rutlabel
+    biplabel: biplabel
+    passwordlabel: passwordlabel
+
+    name: 'register'
+    Label:
+        text: 'Ingrese sus datos'
+        size_hint: 0.7, 0.10
+        pos_hint:{'x':0.15, 'y':0.80}
+
+    TextInput:
+        id: nombre
+        pos_hint: {'x':0.15, 'y':0.65}
+        hint_text: 'Ingrese su nombre'
+        on_text_validate:
+            root.apellidos.focus = True
+
+    Label:
+        id: nombrelabel
+        text_size: self.width, None
+        pos_hint: {'x': 0.85, 'y': 0.65}
+        size_hint: 0.1, 0.1
+
+    TextInput:
+        id: apellidos
+        pos_hint: {'x':0.15, 'y':0.55}
+        hint_text: 'Ingrese sus apellidos'
+        on_text_validate:
+            root.email.focus = True
+
+    Label:
+        id: apellidoslabel
+        text_size: self.width, None 
+        pos_hint: {'x': 0.85, 'y': 0.55}
+        size_hint: 0.1, 0.1
+    
+    TextInput:
+        id: email
+        pos_hint: {'x':0.15, 'y':0.45}
+        hint_text: 'Ingrese su correo electrónico'
+        on_text_validate: 
+            root.email_validation()
+            root.rut.focus = True
+
+    Label:
+        id: emaillabel
+        text_size: self.width, None
+        pos_hint: {'x': 0.85, 'y': 0.45}
+        size_hint: 0.1, 0.1
+
+    TextInput:
+        id: rut
+        pos_hint: {'x':0.15, 'y':0.35}
+        hint_text: 'Ingrese su rut'
+        on_text_validate: 
+            root.rut_template()
+            root.bip.focus = True
+
+    Label:
+        id: rutlabel
+        text_size: self.width, None
+        pos_hint: {'x': 0.85, 'y': 0.35}
+        size_hint: 0.1, 0.1
+
+    TextInput:
+        id: bip
+        pos_hint: {'x':0.15, 'y':0.25}
+        hint_text: 'Ingrese el código de su tarjeta bip'
+
+    Label:
+        id: biplabel
+        text_size: self.width, None
+        pos_hint: {'x': 0.85, 'y': 0.25}
+        size_hint: 0.1, 0.1
+
+    TextInput:
+        hint_text: 'Cree una contraseña'
+        id: password
+        pos_hint:{'x':0.15, 'y':0.15}
+        on_text_validate: root.password_check()
+    
+    Label:
+        id: passwordlabel
+        text_size: self.width, None
+        pos_hint: {'x': 0.85, 'y': 0.15}
+        size_hint: 0.1, 0.1
+
+    Button:
+        text: 'Volver'
+        size_hint: .15, .15
+        on_release: root.manager.current = 'login'
+
+    Button:
+        text: 'Registrarse'
+        size_hint: .15, .15
+        pos_hint: {'x':0.85, 'y':0}
+        on_release: root.data_check()
+
+            
+
+
+
+<Transpuntos>:
+    name: 'lol'
+
+    catito: catito
+    AsyncImage:
+        size_hint: 0.5, 0.5
+        pos_hint: {'x':0.25, 'y': 0.25}
+        id: catito
+        source: None
+
+    Button:
+        text: 'Foto gatito'
+        size_hint: 0.2, 0.2
+        on_release: root.get_cat_image()
+
+    Button:
+        text: 'Mucho gatito'
+        size_hint: 0.2, 0.2
+        pos_hint: {'x': 0.8, 'y':0}
+        on_press:
+            root.manager.current = 'login'
+
+<UserMain>:
+    name: 'usermain'
+    bienvenida: bienvenida
+    Button:
+        text: 'Calificar servicio'
+        size_hint: 0.7, 0.3
+        pos_hint: {'x': 0.15, 'y': 0.45}
+        font_size: self.width/10
+        on_release: 
+            root.manager.current = 'ratingqr'
+            root.manager.get_screen('ratingqr').start_camera()
+    Button:
+        text: 'Revisar recorridos'
+        size_hint: 0.7, 0.15
+        pos_hint: {'x': 0.15, 'y': 0.30}
+
+    Button:
+        text: 'Canjear puntos'
+        size_hint: 0.7, 0.15
+        pos_hint: {'x': 0.15, 'y': 0.15}
+        on_press: 
+            root.manager.current= 'lol'
+            
+
+    Label:
+        id: bienvenida
+        size_hint: 0.4, 0.1
+        pos_hint: {'x':0, 'y': 0.85}
+
+
+
+
+
+<UserRatingQR>:
+    name: 'ratingqr'
+    fotoqr: fotoqr
+    patent_input: patent_input
+    patent_label: patent_label
+    Button:
+        text: 'Volver'
+        size_hint: 0.1, 0.1
+        on_press: 
+            root.manager.current = 'usermain'
+            root.end_camera()
+
+    Image:
+        id: fotoqr
+        size_hint: 0.7, 0.7
+        pos_hint: {'x':0.15, 'y':0.25}
+
+    TextInput:
+        id: patent_input
+        hint_text: 'Patente de la micro. ej. AABB33'
+        size_hint: 0.7, 0.1
+        pos_hint: {'x': 0.15, 'y': 0.15}
+
+    Label:
+        id: patent_label
+        size_hint: 0.15, 0.1
+        pos_hint: {'x': 0.85, 'y': 0.15}
+        text: ''
+
+    Button:
+        text: 'Calificar micro'
+        size_hint: 0.5, 0.15
+        pos_hint: {'x': 0.25, 'y': 0}
+        on_release:
+            root.check_patent(patent_input.text)
+            root.camara = False
+
+
+
+
+<WorkerMain>:
+    name: "workermain"
+    contador_hora: contador_hora
+    boton_contador: boton_contador
+    Button:
+        text: 'Encuestas'
+        size_hint: 0.7, 0.3
+        pos_hint: {'x':0.15, 'y':0.55}
+    Button:
+        text: 'Incidentes'
+        size_hint: 0.7, 0.15
+        pos_hint: {'x':0.15, 'y':0.4}
+    Button:
+        text: 'Pedir hora psicológica'
+        size_hint: 0.7, 0.15
+        pos_hint: {'x':0.15, 'y':0.25}
+
+    Label:
+        id: contador_hora
+        text: '00:00:00'
+        size_hint: 0.7, 0.15
+        pos_hint: {'x':0.15, 'y':0.05}
+
+    Button:
+        id: boton_contador
+        text: 'Comenzar trabajo'
+        size_hint: 0.1, 0.1
+        pos_hint: {'x':0.85, 'y':0.05}
+        on_release:
+            root.boton()
+
+
+
+
+
+
+
+
+
+
+<TextInput>:
+    size_hint: 0.7, 0.10
+    multiline: False
+    write_tab: False
+
+
+
+<RatingScreen>:
+    pregunta1: pregunta1
+    pregunta2: pregunta2
+    pregunta3: pregunta3
+    pregunta4: pregunta4
+    pregunta5: pregunta5
+    respuesta1: respuesta1
+    respuesta2: respuesta2
+    respuesta3: respuesta3
+    respuesta4: respuesta4
+    respuesta5: respuesta5
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            id: pregunta1
+            text: ''
+
+
+        Slider:
+            id: respuesta1
+            min: 1
+            max: 5
+            step: 1
+            value: 3
+            value_track: True
+        Label:
+            id: pregunta2
+            text: ''
+
+        Slider:
+            id: respuesta2
+            min: 1
+            max: 5
+            step: 1
+            value: 3
+        Label:
+            id: pregunta3
+            text: ''
+
+        Slider:
+            id: respuesta3
+            min: 1
+            max: 5
+            step: 1
+            value: 3
+        
+        Label:
+            id: pregunta4
+            text: ''
+
+        Slider:
+            id: respuesta4
+            min: 1
+            max: 5
+            step: 1
+            value: 3
+
+        Label:
+            id: pregunta5
+            text: ''
+
+        Slider:
+            id: respuesta5
+            min: 1
+            max: 5
+            step: 1
+            value: 3
+        Button:
+            text: 'Enviar respuestas'
+            on_release: root.enviar_encuesta()
+
+<AdministratorMain>:
+    name: 'adminmain'
+    BoxLayout:
+        orientation: 'vertical'
+            
+        Button:
+            text: 'Informe general'
+            on_release:
+                root.report()
+                root.manager.current = 'login'
